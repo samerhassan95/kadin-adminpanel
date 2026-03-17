@@ -22,8 +22,22 @@ export default function useDemo() {
   const demoModerator = DEMO_MODERATOR;
   const demoMeneger = DEMO_MANEGER;
 
+  // Check both Redux settings and environment variable
+  // Environment variable takes precedence for immediate override
+  const envDemo = process.env.REACT_APP_IS_DEMO === 'true';
+  const settingsDemo = settings?.is_demo === '1';
+  const isDemo = envDemo || settingsDemo;
+
+  console.log('Demo mode check:', {
+    envDemo,
+    settingsDemo,
+    finalIsDemo: isDemo,
+    envVar: process.env.REACT_APP_IS_DEMO,
+    settingsValue: settings?.is_demo
+  });
+
   return {
-    isDemo: settings?.is_demo === '1',
+    isDemo,
     demoFunc: () => toast.warning(t('cannot.work.demo')),
     demoSeller,
     demoDeliveryman,

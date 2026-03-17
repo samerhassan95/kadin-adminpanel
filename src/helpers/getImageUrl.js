@@ -1,9 +1,8 @@
 import { IMG_URL, BASE_URL } from '../configs/app-global';
-import avatar from '../assets/images/1.png';
 
-export default function getAvatar(url) {
+export default function getImageUrl(url) {
   if (!url) {
-    return avatar;
+    return 'https://via.placeholder.com/150';
   }
   
   // Handle both full URLs and relative paths

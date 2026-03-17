@@ -9,10 +9,11 @@ import { toast } from 'react-toastify';
 const service = axios.create({
   baseURL: api_url,
   timeout: 16000,
+  withCredentials: true, // Enable sending cookies with requests
 });
 
 // Config
-const TOKEN_PAYLOAD_KEY = 'authorization';
+const TOKEN_PAYLOAD_KEY = 'Authorization'; // Use proper capitalization
 const AUTH_TOKEN = 'token';
 const AUTH_TOKEN_TYPE = 'Bearer';
 

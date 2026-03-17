@@ -1,10 +1,10 @@
 export const PROJECT_NAME = 'Kadin marketplace';
-export const BASE_URL = 'http://localhost:8005';
-export const WEBSITE_URL = 'http://localhost:3001';
+export const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8005';
+export const WEBSITE_URL = process.env.REACT_APP_WEBSITE_URL || 'http://localhost:3001';
 export const api_url = BASE_URL + '/api/v1/';
 export const api_url_admin = BASE_URL + '/api/v1/dashboard/admin/';
 export const api_url_admin_dashboard = BASE_URL + '/api/v1/dashboard/';
-export const IMG_URL = '';
+export const IMG_URL = BASE_URL + '/storage/';
 export const MAP_API_KEY = 'AIzaSyDZQUsmwnkCmD3HMNFCABo8YSE54FCTFYo';
 export const export_url = BASE_URL + '/storage/';
 export const example = BASE_URL + '/';

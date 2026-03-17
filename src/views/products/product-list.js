@@ -21,7 +21,8 @@ import {
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { export_url, IMG_URL } from '../../configs/app-global';
+import { export_url } from '../../configs/app-global';
+import getImageUrl from '../../helpers/getImageUrl';
 import { Context } from '../../context/context';
 import CustomModal from '../../components/modal';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -104,11 +105,13 @@ const ProductCategories = () => {
       dataIndex: 'img',
       is_show: true,
       render: (img, row) => {
+        const imageUrl = getImageUrl(img);
+        
         return (
           <Image
             width={100}
             height={100}
-            src={IMG_URL + img}
+            src={imageUrl}
             placeholder
             style={{ borderRadius: 4, objectFit: 'cover' }}
           />

@@ -10,6 +10,12 @@ export const PathLogout = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // For production, skip installation check
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      console.log('Production environment - skipping installation check');
+      return;
+    }
+    
     installationService
       .checkInitFile()
       .then(() => console.log('file found'))

@@ -13,6 +13,13 @@ export const WelcomeLayout = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // For production, skip installation check and go directly to login
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      console.log('Production environment - skipping installation check');
+      navigate('/');
+      return;
+    }
+
     setLoading(true);
     installationService
       .checkInitFile()
@@ -21,7 +28,7 @@ export const WelcomeLayout = ({ children }) => {
   }, []);
 
   if (loading) {
-    <Loading />;
+    return <Loading />;
   }
 
   if (user) {

@@ -1,18 +1,8 @@
 export const PROJECT_NAME = 'Kadin marketplace';
 
-// Determine if we're in production based on hostname
-const isProduction = typeof window !== 'undefined' && 
-  (window.location.hostname === 'admin.kadin.app' || 
-   window.location.hostname === 'kadin.app' ||
-   !window.location.hostname.includes('localhost'));
-
-export const BASE_URL = isProduction 
-  ? 'https://back.kadin.app' 
-  : (process.env.REACT_APP_BASE_URL || 'http://localhost:8005');
-
-export const WEBSITE_URL = isProduction 
-  ? 'https://admin.kadin.app' 
-  : (process.env.REACT_APP_WEBSITE_URL || 'http://localhost:3001');
+// Force production URLs for admin.kadin.app domain
+export const BASE_URL = 'https://back.kadin.app';
+export const WEBSITE_URL = 'https://admin.kadin.app';
 
 export const api_url = BASE_URL + '/api/v1/';
 export const api_url_admin = BASE_URL + '/api/v1/dashboard/admin/';

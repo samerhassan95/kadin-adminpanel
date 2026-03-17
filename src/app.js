@@ -59,19 +59,11 @@ const App = () => {
           />
           <Route
             path='/welcome'
-            element={
-              <WelcomeLayout>
-                <Welcome />
-              </WelcomeLayout>
-            }
+            element={<Navigate to="/login" replace />}
           />
           <Route
             path='/installation'
-            element={
-              <WelcomeLayout>
-                <GlobalSettings />
-              </WelcomeLayout>
-            }
+            element={<Navigate to="/login" replace />}
           />
           <Route
             path=''

@@ -1,8 +1,8 @@
 export const PROJECT_NAME = 'Kadin marketplace';
 
-// Force production URLs for admin.kadin.app domain
-export const BASE_URL = 'https://back.kadin.app';
-export const WEBSITE_URL = 'https://admin.kadin.app';
+// Use environment variables for flexible configuration
+export const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8005';
+export const WEBSITE_URL = process.env.REACT_APP_WEBSITE_URL || 'http://localhost:3001';
 
 export const api_url = BASE_URL + '/api/v1/';
 export const api_url_admin = BASE_URL + '/api/v1/dashboard/admin/';

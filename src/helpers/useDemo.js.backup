@@ -22,22 +22,23 @@ export default function useDemo() {
   const demoModerator = DEMO_MODERATOR;
   const demoMeneger = DEMO_MANEGER;
 
-  // DEMO MODE COMPLETELY DISABLED
-  // Always return false regardless of environment or settings
-  const isDemo = false;
+  // Check both Redux settings and environment variable
+  // Environment variable takes precedence for immediate override
+  const envDemo = process.env.REACT_APP_IS_DEMO === 'true';
+  const settingsDemo = settings?.is_demo === '1';
+  const isDemo = envDemo || settingsDemo;
 
-  console.log('Demo mode DISABLED - always false:', {
-    envDemo: false,
-    settingsDemo: false,
-    finalIsDemo: false,
+  console.log('Demo mode check:', {
+    envDemo,
+    settingsDemo,
+    finalIsDemo: isDemo,
     envVar: process.env.REACT_APP_IS_DEMO,
-    settingsValue: settings?.is_demo,
-    note: 'Demo mode has been completely disabled'
+    settingsValue: settings?.is_demo
   });
 
   return {
-    isDemo: false, // Always false
-    demoFunc: () => {}, // Empty function - no warning
+    isDemo,
+    demoFunc: () => toast.warning(t('cannot.work.demo')),
     demoSeller,
     demoDeliveryman,
     demoShop,

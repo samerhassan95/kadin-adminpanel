@@ -51,6 +51,7 @@ import shopBonus from './slices/shop-bonus';
 import subscriber from './slices/subscriber';
 import messageSubscriber from './slices/messegeSubscriber';
 import storeis from './slices/storeis';
+import reels from './slices/reels';
 import emailProvider from './slices/emailProvider';
 import workingDays from './slices/shopWorkingDays';
 import closeDates from './slices/shopClosedDays';
@@ -144,6 +145,7 @@ const rootReducer = {
   workingDays,
   emailProvider,
   storeis,
+  reels,
   messageSubscriber,
   subscriber,
   bonus,

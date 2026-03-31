@@ -54,6 +54,10 @@ const SellerAppRoutes = [
     path: 'seller/shop-reviews',
     component: lazy(() => import('views/seller-views/shop-reviews')),
   },
+  {
+    path: 'seller/reels',
+    component: lazy(() => import('views/seller-views/reels')),
+  },
 ];
 
 export default SellerAppRoutes;

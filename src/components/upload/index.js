@@ -37,23 +37,32 @@ const MediaUpload = ({
   return (
     <>
       <div className='media-upload-wrapper'>
-        {imageList
-          ?.filter((item) => !item?.isVideo)
-          .map((item, idx) => (
-            <div
-              key={idx}
-              className='image-wrapper'
-              onClick={() => (disabled ? undefined : removeImg(item))}
-            >
+        {imageList?.map((item, idx) => (
+          <div
+            key={idx}
+            className='image-wrapper'
+            onClick={() => (disabled ? undefined : removeImg(item))}
+          >
+            {item?.isVideo || (typeof item === 'string' && (item.includes('.mp4') || item.includes('.webm') || item.includes('.ogg'))) ? (
+              <video
+                width="100"
+                height="100"
+                style={{ objectFit: 'cover', borderRadius: 4 }}
+                controls={false}
+              >
+                <source src={getImage(item?.name || item)} type="video/mp4" />
+              </video>
+            ) : (
               <Image
                 preview={false}
-                src={getImage(item?.name)}
+                src={getImage(item?.name || item)}
                 className='images'
                 alt={'images'}
               />
-              <DeleteOutlined color='white' hidden={disabled} />
-            </div>
-          ))}
+            )}
+            <DeleteOutlined color='white' hidden={disabled} />
+          </div>
+        ))}
         {(multiple || !imageList.length) && (
           <div className='media-upload' onClick={showModal}>
             <PlusOutlined /> <span>{t(text)}</span>

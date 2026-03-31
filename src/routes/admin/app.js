@@ -31,6 +31,10 @@ const AppRoutes = [
     component: lazy(() => import('views/story')),
   },
   {
+    path: 'reels',
+    component: lazy(() => import('views/reels')),
+  },
+  {
     path: 'email/subscriber',
     component: lazy(() => import('views/email-subscribers')),
   },

@@ -90,6 +90,27 @@ const ImageGallery = ({
       });
   };
 
+  const getAcceptedFileTypes = () => {
+    if (type === 'video') {
+      return '.mp4,.webm,.ogg,.avi,.mov,.wmv,.flv,.mkv';
+    }
+    return '.png,.jpg,.jpeg,.webp,.avif,jfif';
+  };
+
+  const getMaxFileSize = () => {
+    if (type === 'video') {
+      return 50; // 50MB for videos
+    }
+    return 2; // 2MB for images
+  };
+
+  const getFileSizeErrorMessage = () => {
+    if (type === 'video') {
+      return t('max.50.mb');
+    }
+    return t('max.2.mb');
+  };
+
   const handleRemove = (file) => {
     setFileList((prev) => prev.filter((item) => item.uid !== file.uid));
   };
@@ -104,11 +125,12 @@ const ImageGallery = ({
         className={disabled ? 'antdImgUpload' : 'antdImgUpload'}
         onRemove={handleRemove}
         showUploadList={false}
-        accept='.png,.jpg,.jpeg,.webp,.avif,jfif'
+        accept={getAcceptedFileTypes()}
         beforeUpload={(file) => {
-          const isItAtLeast2MB = file.size / 1024 / 1024 < 2;
-          if (!isItAtLeast2MB) {
-            toast.error(t('max.2.mb'));
+          const maxSize = getMaxFileSize();
+          const isValidSize = file.size / 1024 / 1024 < maxSize;
+          if (!isValidSize) {
+            toast.error(getFileSizeErrorMessage());
             return false;
           }
           return true;

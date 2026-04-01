@@ -45,6 +45,7 @@ import Deliveryzone from './admin/deliveryzone';
 import DeliveryPriceRoutes from './admin/delivery-pricing';
 import WarehouseRoutes from './admin/warehouse';
 import LooksRoutes from './admin/looks';
+import ReelsRoutes from './admin/reels';
 
 // ** seller routes ** -----------
 import SellerAddonRoutes from './seller/addon';
@@ -76,6 +77,7 @@ import SellerPropertyImport from './seller/property';
 import SellerCouponRoutes from './seller/coupons';
 import SellerLooksRoutes from './seller/looks';
 import SellerDeliveryPriceRoutes from './seller/delivery-price';
+import SellerReelsRoutes from './seller/reels';
 // ** waiter routes ** ----------------
 import WaiterAppRoutes from './waiter/app';
 import WaiterOrderRoutes from './waiter/order';
@@ -128,6 +130,7 @@ const AllRoutes = [
   ...DeliveryPriceRoutes,
   ...WarehouseRoutes,
   ...LooksRoutes,
+  ...ReelsRoutes,
 
   // seller routes
   ...SellerAppRoutes,
@@ -159,6 +162,7 @@ const AllRoutes = [
   ...SellerCouponRoutes,
   ...SellerLooksRoutes,
   ...SellerDeliveryPriceRoutes,
+  ...SellerReelsRoutes,
 
   // waiter routes
   ...WaiterAppRoutes,

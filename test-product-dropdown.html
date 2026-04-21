@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Admin Product Dropdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { border-color: #4CAF50; background-color: #f9fff9; }
+        .error { border-color: #f44336; background-color: #fff9f9; }
+        .info { border-color: #2196F3; background-color: #f9f9ff; }
+        button {
+            background: #1890ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #40a9ff; }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .loading {
+            color: #1890ff;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .checklist li:before {
+            content: "☐ ";
+            color: #999;
+            font-weight: bold;
+        }
+        .checklist li.checked:before {
+            content: "✅ ";
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Admin Product Dropdown Test</h1>
+        <p>This tool helps verify that the product dropdown is working in the admin panel.</p>
+
+        <div class="test-section info">
+            <h3>📋 Current Issue</h3>
+            <p>The product selection dropdown is not appearing in the admin reels form, even though the code is present in the source files.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>🏗️ Step 1: Rebuild Admin Frontend</h3>
+            <p>Run this command in the admin_frontend directory:</p>
+            <code style="background: #f0f0f0; padding: 10px; display: block; margin: 10px 0;">
+# Windows
+fix-product-dropdown.bat
+
+# Linux/Mac
+bash fix-product-dropdown.sh
+            </code>
+        </div>
+
+        <div class="test-section">
+            <h3>🔗 Step 2: Test Backend APIs</h3>
+            <button onclick="testShopsAPI()">Test Shops API</button>
+            <button onclick="testProductsAPI()">Test Products API</button>
+            <button onclick="testReelsAPI()">Test Reels API</button>
+            <div id="apiResults" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🎯 Step 3: Manual Verification Checklist</h3>
+            <p>After rebuilding, verify these items in the admin panel:</p>
+            <ul class="checklist">
+                <li onclick="toggleCheck(this)">Login to <a href="https://admin.kadin.app" target="_blank">admin.kadin.app</a></li>
+                <li onclick="toggleCheck(this)">Navigate to Reels management section</li>
+                <li onclick="toggleCheck(this)">Click "Add Reel" button</li>
+                <li onclick="toggleCheck(this)">Verify "Shop" dropdown appears and loads shops</li>
+                <li onclick="toggleCheck(this)">Select a shop from the dropdown</li>
+                <li onclick="toggleCheck(this)">Verify "Product" dropdown appears after selecting shop</li>
+                <li onclick="toggleCheck(this)">Verify "Optional - Leave empty for general shop reel" text shows</li>
+                <li onclick="toggleCheck(this)">Verify products load in the dropdown for selected shop</li>
+                <li onclick="toggleCheck(this)">Test creating a reel with product selection</li>
+                <li onclick="toggleCheck(this)">Test creating a reel without product (general shop reel)</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>🐛 Troubleshooting</h3>
+            <div id="troubleshooting">
+                <p><strong>If product dropdown still doesn't appear:</strong></p>
+                <ul>
+                    <li>Clear browser cache completely (Ctrl+Shift+Delete)</li>
+                    <li>Try incognito/private browsing mode</li>
+                    <li>Check browser console for JavaScript errors (F12)</li>
+                    <li>Verify the build completed without errors</li>
+                    <li>Check if build files were properly deployed to server</li>
+                    <li>Restart nginx/apache server</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 Expected Behavior</h3>
+            <p>The product dropdown should:</p>
+            <ul>
+                <li>✅ Appear after selecting a shop</li>
+                <li>✅ Show "Select product (optional)" placeholder</li>
+                <li>✅ Load products from the selected shop</li>
+                <li>✅ Allow clearing selection (allowClear=true)</li>
+                <li>✅ Be disabled when no shop is selected</li>
+                <li>✅ Show fallback products if API fails</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://back.kadin.app/api/v1';
+        
+        function log(message, type = 'info') {
+            const results = document.getElementById('apiResults');
+            const timestamp = new Date().toLocaleTimeString();
+            results.innerHTML += `[${timestamp}] ${message}\n`;
+            results.scrollTop = results.scrollHeight;
+        }
+
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+        }
+
+        async function testShopsAPI() {
+            log('🏪 Testing Shops API...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/dashboard/admin/shops/paginate?perPage=10`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                log(`Response Status: ${response.status}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Shops API working! Found ${data.data?.length || 0} shops`);
+                    if (data.data?.length > 0) {
+                        log(`First shop: ${data.data[0].translation?.title || 'No title'}`);
+                    }
+                } else {
+                    log(`❌ Shops API failed: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ Shops API error: ${error.message}`);
+            }
+        }
+
+        async function testProductsAPI() {
+            log('📦 Testing Products API...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/dashboard/admin/products/paginate?shop_id=1&perPage=10`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                log(`Response Status: ${response.status}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Products API working! Found ${data.data?.length || 0} products for shop 1`);
+                    if (data.data?.length > 0) {
+                        log(`First product: ${data.data[0].translation?.title || 'No title'}`);
+                    }
+                } else {
+                    log(`❌ Products API failed: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ Products API error: ${error.message}`);
+            }
+        }
+
+        async function testReelsAPI() {
+            log('🎬 Testing Reels API...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/rest/reels/paginate?perPage=5`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                log(`Response Status: ${response.status}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Reels API working! Found ${data.data?.length || 0} reels`);
+                    
+                    // Check if any reels have products
+                    const reelsWithProducts = data.data?.filter(reel => reel.product) || [];
+                    log(`📊 Reels with products: ${reelsWithProducts.length}`);
+                    
+                    if (reelsWithProducts.length > 0) {
+                        log(`Example reel with product: ${reelsWithProducts[0].product.translation?.title}`);
+                    }
+                } else {
+                    log(`❌ Reels API failed: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                log(`❌ Reels API error: ${error.message}`);
+            }
+        }
+
+        // Auto-run basic tests on page load
+        window.onload = function() {
+            log('🚀 Starting API tests...');
+            setTimeout(testShopsAPI, 500);
+            setTimeout(testProductsAPI, 1000);
+            setTimeout(testReelsAPI, 1500);
+        };
+    </script>
+</body>
+</html>

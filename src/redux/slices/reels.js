@@ -76,6 +76,7 @@ const reelsSlice = createSlice({
   name: 'reels',
   initialState,
   extraReducers: (builder) => {
+    // Fetch Admin Reels
     builder.addCase(fetchAdminReels.pending, (state) => {
       state.loading = true;
     });
@@ -103,6 +104,7 @@ const reelsSlice = createSlice({
       state.error = action.error.message;
     });
 
+    // Fetch Seller Reels
     builder.addCase(fetchSellerReels.pending, (state) => {
       state.loading = true;
     });
@@ -127,6 +129,45 @@ const reelsSlice = createSlice({
     builder.addCase(fetchSellerReels.rejected, (state, action) => {
       state.loading = false;
       state.reels = [];
+      state.error = action.error.message;
+    });
+
+    // Add Seller Reel
+    builder.addCase(addSellerReel.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addSellerReel.fulfilled, (state) => {
+      state.loading = false;
+      state.error = '';
+    });
+    builder.addCase(addSellerReel.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    // Update Seller Reel
+    builder.addCase(updateSellerReel.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateSellerReel.fulfilled, (state) => {
+      state.loading = false;
+      state.error = '';
+    });
+    builder.addCase(updateSellerReel.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+
+    // Delete Seller Reel
+    builder.addCase(deleteSellerReel.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteSellerReel.fulfilled, (state) => {
+      state.loading = false;
+      state.error = '';
+    });
+    builder.addCase(deleteSellerReel.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
     });
   },

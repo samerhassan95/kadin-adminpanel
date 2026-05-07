@@ -22,6 +22,7 @@ import SearchInput from '../../components/search-input';
 import useDidUpdate from '../../helpers/useDidUpdate';
 import { CgExport, CgImport } from 'react-icons/cg';
 import formatSortType from '../../helpers/formatSortType';
+import getImageUrl from '../../helpers/getImageUrl';
 
 const Brands = () => {
   const { t } = useTranslation();
@@ -114,7 +115,7 @@ const Brands = () => {
       render: (img, row) => {
         return (
           <Image
-            src={IMG_URL + img}
+            src={getImageUrl(img)}
             alt='img_gallery'
             width={100}
             height='auto'

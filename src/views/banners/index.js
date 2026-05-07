@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import DeleteButton from 'components/delete-button';
 import FilterColumns from 'components/filter-column';
 import useDidUpdate from 'helpers/useDidUpdate';
+import getImageUrl from 'helpers/getImageUrl';
 import moment from 'moment';
 
 const Banners = () => {
@@ -51,7 +52,7 @@ const Banners = () => {
       render: (img, row) => {
         return (
           <Image
-            src={IMG_URL + img}
+            src={getImageUrl(img)}
             alt='img_gallery'
             width={100}
             className='rounded'

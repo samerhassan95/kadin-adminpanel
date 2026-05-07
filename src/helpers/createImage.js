@@ -1,10 +1,8 @@
-import { IMG_URL } from '../configs/app-global';
+import getImageUrl from './getImageUrl';
 
 export default function createImage(name) {
-  const findHTTPS = name?.includes('https');
-
   return {
     name,
-    url: findHTTPS ? name : name,
+    url: getImageUrl(name),
   };
 }

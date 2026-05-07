@@ -1,7 +1,7 @@
 import { IMG_URL, BASE_URL } from '../configs/app-global';
 
 export default function getImageUrl(url) {
-  if (!url) {
+  if (!url || typeof url !== 'string') {
     return 'https://via.placeholder.com/150';
   }
   

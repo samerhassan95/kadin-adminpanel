@@ -24,6 +24,7 @@ import i18n from '../../configs/i18next';
 import { BiFilterAlt } from 'react-icons/bi';
 import FilterColumns from '../../components/filter-column';
 import formatSortType from '../../helpers/formatSortType';
+import getImageUrl from '../../helpers/getImageUrl';
 
 const { TabPane } = Tabs;
 const colors = ['blue', 'red', 'gold', 'volcano', 'cyan', 'lime'];
@@ -112,7 +113,7 @@ const Shops = () => {
           <Image
             alt={'images background'}
             className='img rounded'
-            src={img || 'https://via.placeholder.com/150'}
+            src={getImageUrl(img)}
             effect='blur'
             width={50}
             height={50}
@@ -131,7 +132,7 @@ const Shops = () => {
           <Image
             alt={'images background'}
             className='img rounded'
-            src={img || 'https://via.placeholder.com/150'}
+            src={getImageUrl(img)}
             effect='blur'
             width={50}
             height={50}

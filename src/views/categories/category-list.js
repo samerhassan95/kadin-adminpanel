@@ -24,6 +24,7 @@ import SearchInput from '../../components/search-input';
 import useDidUpdate from '../../helpers/useDidUpdate';
 import { CgExport, CgImport } from 'react-icons/cg';
 import formatSortType from '../../helpers/formatSortType';
+import getImageUrl from '../../helpers/getImageUrl';
 import CategoryStatusModal from './categoryStatusModal';
 const colors = ['blue', 'red', 'gold', 'volcano', 'cyan', 'lime'];
 
@@ -142,7 +143,7 @@ const CategoryList = ({
       render: (img, row) => {
         return (
           <Image
-            src={img || 'https://via.placeholder.com/150'}
+            src={getImageUrl(img)}
             alt='img_gallery'
             width={100}
             className='rounded'

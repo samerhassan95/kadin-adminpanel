@@ -20,7 +20,7 @@ import blogService from '../../services/blog';
 import { useTranslation } from 'react-i18next';
 import DeleteButton from '../../components/delete-button';
 import FilterColumns from '../../components/filter-column';
-import { IMG_URL } from '../../configs/app-global';
+import getImageUrl from '../../helpers/getImageUrl';
 import moment from 'moment';
 
 export default function Blogs() {
@@ -73,7 +73,7 @@ export default function Blogs() {
           <Image
             width={150}
             height={100}
-            src={IMG_URL + img}
+            src={getImageUrl(img)}
             placeholder
             className='rounded'
             style={{ objectFit: 'contain' }}

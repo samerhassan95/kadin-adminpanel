@@ -29,15 +29,14 @@ const Storeis = () => {
       key: 'file_urls',
       is_show: true,
       render: (file_urls) => {
+        const url = file_urls && file_urls.length > 0 ? file_urls[0] : null;
+        const src = url 
+          ? (url.startsWith('http') ? url : IMG_URL + url)
+          : 'https://via.placeholder.com/150';
+          
         return (
           <Image
-            src={
-              file_urls
-                ? file_urls[0].search('stories/')
-                  ? IMG_URL + file_urls[0]
-                  : 'https://api.foodyman.org/storage/' + file_urls[0]
-                : 'https://via.placeholder.com/150'
-            }
+            src={src}
             alt='img_gallery'
             width={100}
             className='rounded'
